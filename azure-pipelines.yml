@@ -26,7 +26,7 @@ jobs:
         arguments: 'testcontainer:/source/tests/TestResults/ ./TestResults'
     - task: PublishTestResults@2
       inputs:
-        testResultsFormat: 'JUnit'
+        testResultsFormat: 'VSTest'
         testResultsFiles: '**/*.trx'
         mergeTestResults: true
         testRunTitle: 'Tests'
