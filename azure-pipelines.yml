@@ -11,9 +11,9 @@ jobs:
       inputs:
         repository: 'dotnetapp'
         command: 'build'
-        Dockerfile: 'samples/dotnetapp/Dockerfile'
+        Dockerfile: 'samples/complexapp/Dockerfile'
         tags: 'test'
-        arguments: '--pull --target testrunner'
+        arguments: '--pull --target test'
     - task: Docker@2
       inputs:
         command: 'run'
