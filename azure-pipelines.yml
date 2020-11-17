@@ -5,3 +5,22 @@ pool:
 
 jobs:
   - job: build and test
+    steps:
+    - task: Docker@2
+      displayName: Build test image
+      inputs:
+        repository: 'dotnetapp'
+        command: 'build'
+        Dockerfile: 'samples/dotnetapp/Dockerfile'
+        tags: 'test'
+        arguments: '--pull --target testrunner'
+    - task: Docker@2
+      inputs:
+        command: 'run'
+        arguments: '--name testcontainer dotnetapp:test'
+    - task: Docker@2
+      inputs:
+        command: 'cp'
+        arguments: 'testcontainer:/app/tests/TestResults/ ./TestResults'
+    - publish: ./TestResults
+      name: TestResults
