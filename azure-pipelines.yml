@@ -30,3 +30,12 @@ jobs:
         testResultsFiles: '**/*.trx'
         mergeTestResults: true
         testRunTitle: 'Tests'
+    - script: docker rm testcontainer
+      displayName: Remove test container
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'devops-with-aks-acr'
+        repository: 'dotnetapp'
+        command: 'buildAndPush'
+        Dockerfile: 'samples/complexapp/Dockerfile'
+        tags: 'AzP-$(Build.BuildId)'
