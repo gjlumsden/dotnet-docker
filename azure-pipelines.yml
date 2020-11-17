@@ -21,6 +21,6 @@ jobs:
     - task: Docker@2
       inputs:
         command: 'cp'
-        arguments: 'testcontainer:/app/tests/TestResults/ ./TestResults'
+        arguments: 'testcontainer:/source/tests/TestResults/ ./TestResults'
     - publish: ./TestResults
       name: TestResults
