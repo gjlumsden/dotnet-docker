@@ -15,10 +15,12 @@ jobs:
         tags: 'test'
         arguments: '--pull --target test'
     - task: Docker@2
+      displayName: Run test container
       inputs:
         command: 'run'
         arguments: '--name testcontainer dotnetapp:test'
     - task: Docker@2
+      displayName: Copy test results
       inputs:
         command: 'cp'
         arguments: 'testcontainer:/source/tests/TestResults/ ./TestResults'
