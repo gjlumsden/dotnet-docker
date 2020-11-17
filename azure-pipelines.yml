@@ -4,7 +4,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 jobs:
-  - job: build and test
+  - job: BuildTest
     steps:
     - task: Docker@2
       displayName: Build test image
