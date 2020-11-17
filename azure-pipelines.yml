@@ -24,5 +24,9 @@ jobs:
       inputs:
         command: 'cp'
         arguments: 'testcontainer:/source/tests/TestResults/ ./TestResults'
-    - publish: ./TestResults
-      name: TestResults
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '**/*.trx'
+        mergeTestResults: true
+        testRunTitle: 'Tests'
