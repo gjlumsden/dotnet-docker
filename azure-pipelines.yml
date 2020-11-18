@@ -25,6 +25,7 @@ jobs:
         command: 'cp'
         arguments: 'testcontainer:/source/tests/TestResults/ ./TestResults'
     - task: PublishTestResults@2
+      displayName: Publish test results
       inputs:
         testResultsFormat: 'VSTest'
         testResultsFiles: '**/*.trx'
@@ -33,9 +34,18 @@ jobs:
     - script: docker rm testcontainer
       displayName: Remove test container
     - task: Docker@2
+      displayName: Build runtime image
       inputs:
         containerRegistry: 'devops-with-aks-acr'
         repository: 'dotnetapp'
-        command: 'buildAndPush'
+        command: 'build'
         Dockerfile: 'samples/complexapp/Dockerfile'
+        tags: 'AzP-$(Build.BuildId)'
+        arguments: '--pull'
+    - task: Docker@2
+      displayName: Push runtime image
+      inputs:
+        containerRegistry: 'devops-with-aks-acr'
+        repository: 'dotnetapp'
+        command: 'push'
         tags: 'AzP-$(Build.BuildId)'
